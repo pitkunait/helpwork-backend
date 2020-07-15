@@ -42,4 +42,4 @@ build/test-results/
 build/tmp/
 gradlew
 gradlew.bat
-
+.DS_Store

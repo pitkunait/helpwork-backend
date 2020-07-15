@@ -9,7 +9,7 @@ class ApplicationTests {
 
 	@Test
 	fun contextLoads() {
-		assertEquals(0, 0);
+
 	}
 
 }
