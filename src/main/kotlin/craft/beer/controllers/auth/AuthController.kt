@@ -2,15 +2,20 @@ package craft.beer.controllers.auth
 
 import craft.beer.data.user.IUserService
 import craft.beer.data.user.User
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/auth")
-class AuthController(val userService: IUserService) {
+class AuthController(
+    val userService: IUserService,
+    val bCryptPasswordEncoder: BCryptPasswordEncoder) {
 
     @PostMapping("/sign-up")
     fun singUp(@RequestBody user: User) {
-        // user registration
+        user.password = bCryptPasswordEncoder.encode(user.password)
+        // check if user exits
+        // save user
     }
 
     @PostMapping("/sign-in")
