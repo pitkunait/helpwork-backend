@@ -2,18 +2,26 @@ package craft.beer.controllers.auth
 
 import craft.beer.data.user.IUserService
 import craft.beer.data.user.User
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/auth")
 class AuthController(val userService: IUserService) {
 
     @PostMapping("/sign-up")
-    fun singUp() {
+    fun singUp(@RequestBody user: User) {
+        // user registration
+    }
 
+    @PostMapping("/sign-in")
+    fun singIn(@RequestBody email: String, @RequestBody password: String) {
+        // validation service
+        // return jwt
+    }
+
+    @PostMapping("/sing-out")
+    fun signOut() {
+        // close session
     }
 
     @GetMapping("/test")
