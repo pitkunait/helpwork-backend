@@ -48,6 +48,13 @@ class UserDetailsSecured(val id: Long?,
         return id == user.id
     }
 
+    override fun hashCode(): Int {
+        var result = username?.hashCode() ?: 0
+        result = 31 * result + (email?.hashCode() ?: 0)
+        result = 31 * result + (password?.hashCode() ?: 0)
+        return result
+    }
+
     companion object {
         private const val serialVersionUID = 1L
         fun build(user: UserEntity): UserDetailsSecured {
