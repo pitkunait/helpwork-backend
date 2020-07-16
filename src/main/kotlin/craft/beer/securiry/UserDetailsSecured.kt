@@ -61,12 +61,8 @@ class UserDetailsSecured(val id: Long?,
             val authorities: List<GrantedAuthority> = user.roles.stream()
                     .map { role -> SimpleGrantedAuthority(role.getName()?.name) }
                     .collect(Collectors.toList())
-            return UserDetailsSecured(
-                    user.id,
-                    user.username,
-                    user.email,
-                    user.password,
-                    authorities)
+
+            return UserDetailsSecured(user.id, user.username, user.email, user.password, authorities)
         }
     }
 
