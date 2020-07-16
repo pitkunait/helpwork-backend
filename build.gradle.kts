@@ -8,7 +8,7 @@ plugins {
 	kotlin("plugin.jpa") version "1.3.72"
 }
 
-group = "com.example"
+group = "craft.beer"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
@@ -28,6 +28,14 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("org.springframework.session:spring-session-core")
+
+	// entity validation
+	implementation("org.hibernate.validator:hibernate-validator:6.1.5.Final")
+	implementation("org.hibernate.validator:hibernate-validator-annotation-processor:6.1.5.Final")
+
+	// jwt support
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
