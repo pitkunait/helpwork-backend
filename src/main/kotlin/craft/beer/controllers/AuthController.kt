@@ -8,7 +8,6 @@ class AuthController() {
 
     @PostMapping("/sign-up")
     fun singUp() {
-        //user.password = bCryptPasswordEncoder.encode(user.password)
         // check if user exits
         // save user
     }
@@ -22,5 +21,10 @@ class AuthController() {
     @PostMapping("/sing-out")
     fun signOut() {
         // close session
+    }
+
+    @GetMapping("/test")
+    fun test(): String {
+        return "it works !"
     }
 }
