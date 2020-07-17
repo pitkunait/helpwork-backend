@@ -1,4 +1,4 @@
-package craft.beer.securiry
+package craft.beer.securiry.services
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import craft.beer.data.user.entities.UserEntity
@@ -7,9 +7,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.stream.Collectors
 
-class UserDetailsSecured(val id: Long?,
+class UserDetailsSecured(private val id: Long?,
                          private val username: String?,
-                         val email: String?,
+                         private val email: String?,
                          @field:JsonIgnore private val password: String?,
                          private val authorities: Collection<GrantedAuthority>) : UserDetails {
 
@@ -51,7 +51,6 @@ class UserDetailsSecured(val id: Long?,
     override fun hashCode(): Int {
         var result = username?.hashCode() ?: 0
         result = 31 * result + (email?.hashCode() ?: 0)
-        result = 31 * result + (password?.hashCode() ?: 0)
         return result
     }
 
@@ -65,5 +64,4 @@ class UserDetailsSecured(val id: Long?,
             return UserDetailsSecured(user.id, user.username, user.email, user.password, authorities)
         }
     }
-
 }

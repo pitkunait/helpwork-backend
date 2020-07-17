@@ -1,6 +1,6 @@
-package craft.beer.securiry.jwt
+package craft.beer.securiry.auth
 
-import craft.beer.securiry.UserDetailsSecured
+import craft.beer.securiry.services.UserDetailsSecured
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.Decoders
@@ -12,7 +12,7 @@ import java.security.Key
 import java.util.*
 
 @Service
-class JwtService {
+class AuthJwtService {
     @Value("\${helpwork.app.secret")
     private val jwtSecret: String? = null
 
@@ -33,12 +33,12 @@ class JwtService {
                 .compact()
     }
 
-    fun getUserNameFromJwtToken(token: String?): String? {
+    fun getUserNameFromJwtToken(token: String): String {
         return Jwts.parserBuilder().setSigningKey(jwtSecret).build()
                 .parseClaimsJwt(token).body.subject
     }
 
-    fun validateJwtToken(authToken: String?): Boolean {
+    fun validateJwtToken(authToken: String): Boolean {
         try {
             Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJwt(authToken)
             return true
