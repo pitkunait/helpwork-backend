@@ -13,10 +13,10 @@ import java.util.*
 
 @Service
 class AuthJwtService {
-    @Value("\${helpwork.app.secret")
+    @Value("\${helpwork.jwt.secret")
     private val jwtSecret: String? = null
 
-    @Value("\${helpwork.app.jwtExpirationMs}")
+    @Value("\${helpwork.jwt.jwtExpirationMs}")
     private val jwtExpirationMs = 0
 
     fun generateJwtToken(authentication: Authentication): String? {
