@@ -1,9 +1,9 @@
-package craft.beer.securiry.config
+package craft.beer.core.security.config
 
-import craft.beer.securiry.auth.AuthEntryPointJwt
-import craft.beer.securiry.auth.AuthTokenFilter
-import craft.beer.securiry.auth.AuthJwtService
-import craft.beer.securiry.services.UserDetailsSecuredService
+import craft.beer.core.security.auth.AuthEntryPointJwt
+import craft.beer.core.security.auth.AuthTokenFilter
+import craft.beer.core.security.auth.AuthJwtService
+import craft.beer.core.security.services.UserDetailsSecuredService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager

@@ -1,4 +1,4 @@
-package craft.beer.data.mapper
+package craft.beer.core.user.mapper
 
 /*
 fun User.toUserEntity() = UserEntity(

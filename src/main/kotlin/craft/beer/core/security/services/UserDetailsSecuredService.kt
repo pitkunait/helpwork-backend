@@ -1,6 +1,6 @@
-package craft.beer.securiry.services
+package craft.beer.core.security.services
 
-import craft.beer.data.user.repositories.UserRepository
+import craft.beer.core.user.repositories.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException

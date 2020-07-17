@@ -1,4 +1,4 @@
-package craft.beer.securiry.auth
+package craft.beer.core.security.auth
 
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint

@@ -1,7 +1,7 @@
-package craft.beer.securiry.services
+package craft.beer.core.security.services
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import craft.beer.data.user.entities.UserEntity
+import craft.beer.core.user.entities.UserEntity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails

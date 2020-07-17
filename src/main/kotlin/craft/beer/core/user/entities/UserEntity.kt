@@ -1,4 +1,4 @@
-package craft.beer.data.user.entities
+package craft.beer.core.user.entities
 
 import javax.persistence.*
 import javax.validation.constraints.Email

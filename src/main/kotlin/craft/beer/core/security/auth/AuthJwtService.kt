@@ -1,6 +1,6 @@
-package craft.beer.securiry.auth
+package craft.beer.core.security.auth
 
-import craft.beer.securiry.services.UserDetailsSecured
+import craft.beer.core.security.services.UserDetailsSecured
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.Decoders

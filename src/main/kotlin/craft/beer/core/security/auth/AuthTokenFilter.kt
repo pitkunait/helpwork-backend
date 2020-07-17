@@ -1,6 +1,6 @@
-package craft.beer.securiry.auth
+package craft.beer.core.security.auth
 
-import craft.beer.securiry.services.UserDetailsSecuredService
+import craft.beer.core.security.services.UserDetailsSecuredService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
