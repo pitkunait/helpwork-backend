@@ -57,9 +57,11 @@ class UserDetailsSecured(private val id: Long?,
     companion object {
         private const val serialVersionUID = 1L
         fun build(user: UserEntity): UserDetailsSecured {
-            val authorities: List<GrantedAuthority> = user.roles.stream()
-                    .map { role -> SimpleGrantedAuthority(role.getName()?.name) }
-                    .collect(Collectors.toList())
+//            val authorities: List<GrantedAuthority> = user.roles.stream()
+//                    .map { role -> SimpleGrantedAuthority(role.getName()?.name) }
+//                    .collect(Collectors.toList())
+
+            val authorities: List<GrantedAuthority> = listOf(SimpleGrantedAuthority("USER"))
 
             return UserDetailsSecured(user.id, user.username, user.email, user.password, authorities)
         }

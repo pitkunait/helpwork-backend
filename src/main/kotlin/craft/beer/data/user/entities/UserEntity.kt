@@ -14,27 +14,42 @@ class UserEntity {
     var id: Long? = null
 
     @NotBlank
-    @Size(max = 20)
     var username: String? = null
 
     @NotBlank
-    @Size(max = 50)
+    @Column(name = "first_name")
+    var firstName: String? = null
+
+    @NotBlank
+    @Column(name = "last_name")
+    var lastName: String? = null
+
+    @NotBlank
     @Email
     var email: String? = null
 
     @NotBlank
-    @Size(max = 120)
     var password: String? = null
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")], inverseJoinColumns = [JoinColumn(name = "role_id")])
-    var roles: Set<RoleEntity> = HashSet<RoleEntity>()
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "roles",
+//            joinColumns = [JoinColumn(name = "user_id")],
+//            inverseJoinColumns = [JoinColumn(name = "role_id")]
+//    )
+//    var roles: Set<RoleEntity> = HashSet<RoleEntity>()
 
     constructor() {}
-    constructor(username: String?, email: String?, password: String?) {
+    constructor(username: String?,
+                email: String?,
+                password: String?,
+                firstName: String?,
+                lastName: String?) {
         this.username = username
         this.email = email
         this.password = password
+        this.firstName = firstName
+        this.lastName = lastName
     }
 
 }

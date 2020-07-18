@@ -13,13 +13,13 @@ import java.util.*
 
 @Service
 class AuthJwtService {
-    @Value("\${helpwork.jwt.secret")
+    @Value("\${helpwork.jwt.secret}")
     private val jwtSecret: String? = null
 
     @Value("\${helpwork.jwt.jwtExpirationMs}")
     private val jwtExpirationMs = 0
 
-    fun generateJwtToken(authentication: Authentication): String? {
+    fun generateJwtToken(authentication: Authentication): String {
         val userPrincipal: UserDetailsSecured = authentication.principal as UserDetailsSecured
 
         val keyBytes = Decoders.BASE64.decode(jwtSecret)
@@ -34,13 +34,20 @@ class AuthJwtService {
     }
 
     fun getUserNameFromJwtToken(token: String): String {
-        return Jwts.parserBuilder().setSigningKey(jwtSecret).build()
-                .parseClaimsJwt(token).body.subject
+        return Jwts.parserBuilder()
+                .setSigningKey(jwtSecret)
+                .build()
+                .parseClaimsJwt(token)
+                .body
+                .subject
     }
 
     fun validateJwtToken(authToken: String): Boolean {
         try {
-            Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJwt(authToken)
+            Jwts.parserBuilder()
+                    .setSigningKey(jwtSecret)
+                    .build()
+                    .parseClaimsJwt(authToken)
             return true
         } catch (e: Exception) {
             // throw error or/and log

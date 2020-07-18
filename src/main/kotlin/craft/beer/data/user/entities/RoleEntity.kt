@@ -7,7 +7,7 @@ import javax.persistence.*
 class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null
+    var role_id: Int? = null
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)

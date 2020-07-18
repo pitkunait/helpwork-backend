@@ -35,6 +35,7 @@ dependencies {
 
 	// jwt support
 	implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
+	implementation("io.jsonwebtoken:jjwt-impl:0.10.2")
 
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
