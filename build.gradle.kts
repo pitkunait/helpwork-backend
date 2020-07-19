@@ -17,6 +17,7 @@ repositories {
 }
 
 dependencies {
+	implementation("org.modelmapper:modelmapper:2.3.5")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-rest")
 	implementation("org.springframework.boot:spring-boot-starter-security")
@@ -29,13 +30,14 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("org.springframework.session:spring-session-core")
 
+
 	// entity validation
 	implementation("org.hibernate.validator:hibernate-validator:6.1.5.Final")
 	implementation("org.hibernate.validator:hibernate-validator-annotation-processor:6.1.5.Final")
 
 	// jwt support
 	implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
-	implementation("io.jsonwebtoken:jjwt-impl:0.10.2")
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.2")
 
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
