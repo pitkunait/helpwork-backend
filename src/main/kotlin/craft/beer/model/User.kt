@@ -28,7 +28,7 @@ class User {
     @Size(min = 4, message = "Minimum password length: 8 characters")
     var password: String? = null
 
-    @ElementCollection(fetch = FetchType.LAZY, targetClass = Role::class)
+    @ElementCollection(fetch = FetchType.EAGER, targetClass = Role::class)
     @JoinTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")])
     @Column(name = "role")
     var roles: Set<Role>? = setOf(Role.ROLE_USER)
