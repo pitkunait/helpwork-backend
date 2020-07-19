@@ -1,12 +1,12 @@
 package craft.beer.controllers
 
 import craft.beer.model.User
-import org.modelmapper.ModelMapper
 import craft.beer.payload.requests.SignInRequest
 import craft.beer.payload.requests.SignUpRequest
 import craft.beer.payload.responses.SignInResponse
 import craft.beer.payload.responses.SignUpResponse
 import craft.beer.services.IUserService
+import org.modelmapper.ModelMapper
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 

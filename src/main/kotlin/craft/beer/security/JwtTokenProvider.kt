@@ -1,4 +1,4 @@
-package craft.beer.securiry
+package craft.beer.security
 
 import craft.beer.exceptions.CustomException
 import craft.beer.model.Role
@@ -17,13 +17,13 @@ import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 
 @Component
-class JwtTokenProvider (private val myUserDetails: MyUserDetails) {
+class JwtTokenProvider(private val myUserDetails: MyUserDetails) {
 
     @Value("\${security.jwt.token.secret-key}")
     private var secretKey: String? = null
 
     @Value("\${security.jwt.token.expire-length}")
-    private val validityInMilliseconds: Long = 3600000 // 1h
+    private val validityInMilliseconds: Long = 3600000
 
     @PostConstruct
     protected fun init() {
@@ -38,11 +38,11 @@ class JwtTokenProvider (private val myUserDetails: MyUserDetails) {
                 .collect(Collectors.toList())
         val now = Date()
         val validity = Date(now.time + validityInMilliseconds)
-        return Jwts.builder() //
-                .setClaims(claims) //
-                .setIssuedAt(now) //
-                .setExpiration(validity) //
-                .signWith(SignatureAlgorithm.HS256, secretKey) //
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact()
     }
 
@@ -52,7 +52,11 @@ class JwtTokenProvider (private val myUserDetails: MyUserDetails) {
     }
 
     fun getUsername(token: String?): String {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).body.subject
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .body
+                .subject
     }
 
     fun resolveToken(req: HttpServletRequest): String? {
@@ -64,7 +68,9 @@ class JwtTokenProvider (private val myUserDetails: MyUserDetails) {
 
     fun validateToken(token: String?): Boolean {
         return try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
+            Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token)
             true
         } catch (e: JwtException) {
             throw CustomException("Expired or invalid JWT token", HttpStatus.INTERNAL_SERVER_ERROR)

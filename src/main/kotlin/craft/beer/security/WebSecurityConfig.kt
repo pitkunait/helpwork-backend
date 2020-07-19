@@ -1,4 +1,4 @@
-package craft.beer.securiry
+package craft.beer.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,7 +18,6 @@ class WebSecurityConfig(
         private val jwtTokenProvider: JwtTokenProvider
 ) : WebSecurityConfigurerAdapter() {
 
-    @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
 
         // Disable CSRF (cross site request forgery)
@@ -36,7 +35,7 @@ class WebSecurityConfig(
         http.apply(JwtTokenFilterConfigurer(jwtTokenProvider))
 
         // Optional, if you want to test the API from a browser
-        http.httpBasic();
+        http.httpBasic()
     }
 
     @Bean
@@ -45,7 +44,6 @@ class WebSecurityConfig(
     }
 
     @Bean
-    @Throws(Exception::class)
     override fun authenticationManagerBean(): AuthenticationManager {
         return super.authenticationManagerBean()
     }

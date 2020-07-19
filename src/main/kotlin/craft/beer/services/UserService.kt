@@ -3,7 +3,7 @@ package craft.beer.services
 import craft.beer.exceptions.CustomException
 import craft.beer.model.User
 import craft.beer.repositories.UserRepository
-import craft.beer.securiry.JwtTokenProvider
+import craft.beer.security.JwtTokenProvider
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -39,11 +39,11 @@ class UserService(
         }
     }
 
-    override fun delete(username: String?) {
+    override fun deleteByUserName(username: String?) {
         userRepository.deleteByUsername(username)
     }
 
-    override fun search(username: String?): User {
+    override fun searchByUserName(username: String?): User {
         return userRepository.findByUsername(username!!).get()
     }
 
@@ -51,7 +51,7 @@ class UserService(
         return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req!!))).get()
     }
 
-    override fun refresh(username: String?): String {
+    override fun refreshToken(username: String?): String {
         return jwtTokenProvider.createToken(username, userRepository.findByUsername(username!!).get().roles!!)
     }
 }
