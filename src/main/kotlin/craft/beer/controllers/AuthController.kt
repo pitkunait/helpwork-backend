@@ -19,7 +19,7 @@ class AuthController(
 ) {
 
     @PostMapping("/signup")
-    fun singUp(@RequestBody signUpRequest: SignUpRequest): ResponseEntity<SignUpResponse> {
+    fun signUp(@RequestBody signUpRequest: SignUpRequest): ResponseEntity<SignUpResponse> {
         try {
             val jwtToken: String = userService.signUp(modelMapper.map(signUpRequest, User::class.java))
             return ResponseEntity
@@ -33,7 +33,7 @@ class AuthController(
     }
 
     @PostMapping("/signin")
-    fun singIn(@RequestBody signInRequest: SignInRequest): ResponseEntity<SignInResponse> {
+    fun signIn(@RequestBody signInRequest: SignInRequest): ResponseEntity<SignInResponse> {
         try {
             val jwtToken: String = userService.signIn(signInRequest.username, signInRequest.password)
             return ResponseEntity
