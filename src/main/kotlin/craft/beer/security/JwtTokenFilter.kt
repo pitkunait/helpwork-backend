@@ -7,7 +7,7 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-// We should use OncePerRequestFilter since we are doing a database call, there is no point in doing this more than once
+
 class JwtTokenFilter(
         private val jwtTokenProvider: JwtTokenProvider
 ) : OncePerRequestFilter() {

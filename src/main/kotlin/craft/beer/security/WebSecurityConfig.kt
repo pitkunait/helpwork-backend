@@ -27,8 +27,9 @@ class WebSecurityConfig(
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         // Entry points
-        http.authorizeRequests() //
-                .antMatchers("/auth/**").permitAll() //
+        http.authorizeRequests()
+                .antMatchers("/auth/signin").permitAll()
+                .antMatchers("/auth/signup").permitAll()
                 .anyRequest().authenticated()
 
         // Apply JWT

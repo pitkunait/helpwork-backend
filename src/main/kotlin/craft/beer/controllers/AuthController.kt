@@ -1,32 +1,29 @@
 package craft.beer.controllers
 
-import craft.beer.model.User
 import craft.beer.payload.requests.SignInRequest
 import craft.beer.payload.requests.SignUpRequest
 import craft.beer.payload.responses.SignInResponse
 import craft.beer.payload.responses.SignUpResponse
 import craft.beer.services.IUserService
-import org.modelmapper.ModelMapper
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletRequest
 
-@CrossOrigin(maxAge = 3600)
+
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
-class AuthController(
-        private val userService: IUserService,
-        private val modelMapper: ModelMapper
-) {
+class AuthController(private val userService: IUserService) {
 
     @PostMapping("/signup")
     fun signUp(@RequestBody signUpRequest: SignUpRequest): ResponseEntity<SignUpResponse> {
-        try {
-            val jwtToken: String = userService.signUp(modelMapper.map(signUpRequest, User::class.java))
-            return ResponseEntity
+        return try {
+            ResponseEntity
                     .ok()
-                    .body(SignUpResponse("Success: New user created.", jwtToken))
+                    .body(SignUpResponse("Success: New user created.", userService.signUp(signUpRequest)))
         } catch (e: Exception) {
-            return ResponseEntity
+            ResponseEntity
                     .badRequest()
                     .body(SignUpResponse("Error: " + e.message, null))
         }
@@ -34,26 +31,26 @@ class AuthController(
 
     @PostMapping("/signin")
     fun signIn(@RequestBody signInRequest: SignInRequest): ResponseEntity<SignInResponse> {
-        try {
-            val jwtToken: String = userService.signIn(signInRequest.username, signInRequest.password)
-            return ResponseEntity
+        return try {
+            ResponseEntity
                     .ok()
-                    .body(SignInResponse("Success: User logged in.", jwtToken))
+                    .body(SignInResponse("Success: User logged in.", userService.signIn(signInRequest)))
         } catch (e: Exception) {
-            return ResponseEntity
+            ResponseEntity
                     .badRequest()
                     .body(SignInResponse("Error: " + e.message, null))
         }
     }
 
-    @PostMapping("/sing-out")
+    @PostMapping("/signout")
     fun signOut() {
+        // invalidate all tokens
         // close session
     }
 
     @GetMapping("/refresh-token")
-    fun test(): String {
-        // close session
-        return "huihui"
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    fun refresh(req: HttpServletRequest): String? {
+        return userService.refreshToken(req.remoteUser)
     }
 }
