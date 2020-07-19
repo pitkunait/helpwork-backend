@@ -33,13 +33,7 @@ hs_err_pid*
 
 .gradle/
 .idea/
-build/classes/kotlin/main/META-INF/
-build/classes/kotlin/test/META-INF/
-build/kotlin/
-build/reports/
-build/resources/
-build/test-results/
-build/tmp/
+build
 gradlew
 gradlew.bat
 .DS_Store
