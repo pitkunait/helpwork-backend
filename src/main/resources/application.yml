@@ -18,4 +18,5 @@ security:
   jwt:
     token:
       secret-key: 9UzXdPjLYKgZeDN2f_k11sODwyrsJd6V3oehyg4z1O0ZsldIDEm37NFGLsl2Gl6IEekMPJxuLHeQp5h2DT2MI2lfT_-1sseEbeNYRFRxbRuH_vBOrd_We2ouLwvgM8Qnt0lrmanmcaj1jqnFVrwRUV1AZh-QFWEIXoNKti4VdXc
-      expire-length: 300000
+      access-token-expiration: 300000
+      refresh-token-expiration: 86400000

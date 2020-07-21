@@ -2,49 +2,73 @@ package craft.beer.security
 
 import craft.beer.exceptions.CustomException
 import craft.beer.model.Role
+import craft.beer.model.Scope
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
+import java.security.Key
 import java.util.*
 import java.util.stream.Collectors
 import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 
+
 @Component
 class JwtTokenProvider(private val myUserDetails: MyUserDetails) {
 
-    @Value("\${security.jwt.token.secret-key}")
-    private var secretKey: String? = null
+    //    @Value("\${security.jwt.token.secret-key}")
+    //    private var secretKey: String? = null
 
-    @Value("\${security.jwt.token.expire-length}")
-    private val validityInMilliseconds: Long = 3600000
+    //    @PostConstruct
+    //    protected fun init() {
+    //        secretKey = Base64.getEncoder().encodeToString(secretKey!!.toByteArray())
+    //    }
 
-    @PostConstruct
-    protected fun init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey!!.toByteArray())
-    }
+    @Value("\${security.jwt.token.access-token-expiration}")
+    private val accessTokenExpiration: Long? = null
 
-    fun createToken(username: String?, roles: Set<Role>): String {
+    @Value("\${security.jwt.token.refresh-token-expiration}")
+    private val refreshTokenExpiration: Long? = null
+
+    private var secretKey: Key? = Keys.secretKeyFor(SignatureAlgorithm.HS512)
+
+    fun createAccessJwtToken(username: String?, roles: Set<Role>): String {
         val claims = Jwts.claims().setSubject(username)
         claims["auth"] = roles.stream()
                 .map { s: Role -> SimpleGrantedAuthority(s.name) }
                 .filter { obj: SimpleGrantedAuthority? -> Objects.nonNull(obj) }
                 .collect(Collectors.toList())
         val now = Date()
-        val validity = Date(now.time + validityInMilliseconds)
+        val validity = Date(now.time + accessTokenExpiration!!)
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(secretKey, SignatureAlgorithm.HS512)
                 .compact()
     }
+
+    fun createRefreshJwtToken(username: String?): String {
+        val claims = Jwts.claims().setSubject(username)
+        claims["auth"] = listOf(Scope.REFRESH_TOKEN.name)
+        val now = Date()
+        val validity = Date(now.time + refreshTokenExpiration!!)
+        return Jwts.builder()
+                .setClaims(claims)
+                .setId(UUID.randomUUID().toString())
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(secretKey, SignatureAlgorithm.HS512)
+                .compact()
+    }
+
 
     fun getAuthentication(token: String?): Authentication {
         val userDetails = myUserDetails.loadUserByUsername(getUsername(token))

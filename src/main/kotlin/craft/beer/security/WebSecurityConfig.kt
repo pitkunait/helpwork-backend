@@ -30,6 +30,7 @@ class WebSecurityConfig(
         http.authorizeRequests()
                 .antMatchers("/auth/signin").permitAll()
                 .antMatchers("/auth/signup").permitAll()
+                .antMatchers("/auth/refresh-token").permitAll()
                 .anyRequest().authenticated()
 
         // Apply JWT

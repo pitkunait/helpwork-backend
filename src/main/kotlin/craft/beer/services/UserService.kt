@@ -2,8 +2,12 @@ package craft.beer.services
 
 import craft.beer.exceptions.CustomException
 import craft.beer.model.User
+import craft.beer.payload.requests.RefreshTokenRequest
 import craft.beer.payload.requests.SignInRequest
 import craft.beer.payload.requests.SignUpRequest
+import craft.beer.payload.responses.RefreshTokenResponse
+import craft.beer.payload.responses.SignInResponse
+import craft.beer.payload.responses.SignUpResponse
 import craft.beer.repositories.UserRepository
 import craft.beer.security.JwtTokenProvider
 import org.modelmapper.ModelMapper
@@ -24,16 +28,18 @@ class UserService(
         private val modelMapper: ModelMapper
 ) : IUserService {
 
-    override fun signIn(signInRequest: SignInRequest): String {
+    override fun signIn(signInRequest: SignInRequest): SignInResponse {
         return try {
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(signInRequest.username, signInRequest.password))
-            jwtTokenProvider.createToken(signInRequest.username, userRepository.findByUsername(signInRequest.username).get().roles!!)
+            val accessToken: String = jwtTokenProvider.createAccessJwtToken(signInRequest.username, userRepository.findByUsername(signInRequest.username).get().roles!!)
+            val refreshToken: String = jwtTokenProvider.createRefreshJwtToken(signInRequest.username)
+            SignInResponse("Success: User logged in.", accessToken, refreshToken)
         } catch (e: AuthenticationException) {
             throw CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
 
-    override fun signUp(signUpRequest: SignUpRequest): String {
+    override fun signUp(signUpRequest: SignUpRequest): SignUpResponse {
         if (userRepository.existsByUsername(signUpRequest.username)) {
             throw CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY)
         }
@@ -45,7 +51,9 @@ class UserService(
             val user: User = modelMapper.map(signUpRequest, User::class.java)
             user.password = passwordEncoder.encode(user.password)
             userRepository.save(user)
-            jwtTokenProvider.createToken(user.username, user.roles!!)
+            val accessToken: String = jwtTokenProvider.createAccessJwtToken(user.username, user.roles!!)
+            val refreshToken: String = jwtTokenProvider.createRefreshJwtToken(user.username)
+            SignUpResponse("Success: New user created.", accessToken, refreshToken)
         } catch (e: Exception) {
             throw CustomException(e.message!!, HttpStatus.UNPROCESSABLE_ENTITY)
         }
@@ -63,8 +71,14 @@ class UserService(
         return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req!!))).get()
     }
 
-    override fun refreshToken(username: String?): String {
-        // deactivate old token if it is still valid
-        return jwtTokenProvider.createToken(username, userRepository.findByUsername(username!!).get().roles!!)
+    override fun refreshToken(refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse {
+        return try {
+            jwtTokenProvider.validateToken(refreshTokenRequest.refreshJwt)
+            val username: String = jwtTokenProvider.getUsername(refreshTokenRequest.refreshJwt)
+            val accessToken: String = jwtTokenProvider.createAccessJwtToken(username, userRepository.findByUsername(username).get().roles!!)
+            RefreshTokenResponse("Success: New token granted.", accessToken)
+        } catch (e: Exception) {
+            throw CustomException(e.message!!, HttpStatus.UNPROCESSABLE_ENTITY)
+        }
     }
 }
