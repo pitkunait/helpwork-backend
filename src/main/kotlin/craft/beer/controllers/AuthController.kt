@@ -1,14 +1,14 @@
 package craft.beer.controllers
 
+import craft.beer.payload.requests.RefreshTokenRequest
 import craft.beer.payload.requests.SignInRequest
 import craft.beer.payload.requests.SignUpRequest
+import craft.beer.payload.responses.RefreshTokenResponse
 import craft.beer.payload.responses.SignInResponse
 import craft.beer.payload.responses.SignUpResponse
 import craft.beer.services.IUserService
 import org.springframework.http.ResponseEntity
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
-import javax.servlet.http.HttpServletRequest
 
 
 @CrossOrigin
@@ -21,11 +21,11 @@ class AuthController(private val userService: IUserService) {
         return try {
             ResponseEntity
                     .ok()
-                    .body(SignUpResponse("Success: New user created.", userService.signUp(signUpRequest)))
+                    .body(userService.signUp(signUpRequest))
         } catch (e: Exception) {
             ResponseEntity
                     .badRequest()
-                    .body(SignUpResponse("Error: " + e.message, null))
+                    .body(SignUpResponse("Error: " + e.message))
         }
     }
 
@@ -34,23 +34,24 @@ class AuthController(private val userService: IUserService) {
         return try {
             ResponseEntity
                     .ok()
-                    .body(SignInResponse("Success: User logged in.", userService.signIn(signInRequest)))
+                    .body(userService.signIn(signInRequest))
         } catch (e: Exception) {
             ResponseEntity
                     .badRequest()
-                    .body(SignInResponse("Error: " + e.message, null))
+                    .body(SignInResponse("Error: " + e.message))
         }
     }
 
-    @PostMapping("/signout")
-    fun signOut() {
-        // invalidate all tokens
-        // close session
-    }
-
-    @GetMapping("/refresh-token")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    fun refresh(req: HttpServletRequest): String? {
-        return userService.refreshToken(req.remoteUser)
+    @PostMapping("/refresh-token")
+    fun refreshToken(@RequestBody refreshTokenRequest: RefreshTokenRequest): ResponseEntity<RefreshTokenResponse> {
+        return try {
+            ResponseEntity
+                    .ok()
+                    .body(userService.refreshToken(refreshTokenRequest))
+        } catch (e: Exception) {
+            ResponseEntity
+                    .badRequest()
+                    .body(RefreshTokenResponse("Error: " + e.message))
+        }
     }
 }

@@ -1,9 +1,9 @@
 package craft.beer.payload.requests
 
 data class SignUpRequest(
-        val username: String,
-        val email: String,
-        val firstName: String,
-        val lastName: String,
-        val password: String
+        var username: String,
+        var email: String,
+        var firstName: String,
+        var lastName: String,
+        var password: String
 )

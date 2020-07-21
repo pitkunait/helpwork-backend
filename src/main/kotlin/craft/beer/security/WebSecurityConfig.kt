@@ -22,7 +22,7 @@ class WebSecurityConfig(
 
         // Disable CSRF (cross site request forgery)
         http.csrf().disable()
-
+        http.cors()
         // No session will be created or used by spring security
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
@@ -30,6 +30,7 @@ class WebSecurityConfig(
         http.authorizeRequests()
                 .antMatchers("/auth/signin").permitAll()
                 .antMatchers("/auth/signup").permitAll()
+                .antMatchers("/auth/refresh-token").permitAll()
                 .anyRequest().authenticated()
 
         // Apply JWT
