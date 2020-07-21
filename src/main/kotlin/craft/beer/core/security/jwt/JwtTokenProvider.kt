@@ -1,6 +1,7 @@
-package craft.beer.core.security
+package craft.beer.core.security.jwt
 
 import craft.beer.core.exceptions.CustomException
+import craft.beer.core.security.MyUserDetails
 import craft.beer.user.model.Role
 import craft.beer.user.model.Token
 import io.jsonwebtoken.JwtException

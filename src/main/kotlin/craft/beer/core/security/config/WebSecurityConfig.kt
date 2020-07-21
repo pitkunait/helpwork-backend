@@ -1,5 +1,7 @@
-package craft.beer.core.security
+package craft.beer.core.security.config
 
+import craft.beer.core.security.jwt.JwtTokenFilterConfigurer
+import craft.beer.core.security.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager

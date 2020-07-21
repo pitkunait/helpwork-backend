@@ -10,7 +10,7 @@ import craft.beer.controllers.payload.responses.SignInResponse
 import craft.beer.controllers.payload.responses.SignUpResponse
 import craft.beer.controllers.payload.responses.UserInformationResponse
 import craft.beer.user.repositories.UserRepository
-import craft.beer.core.security.JwtTokenProvider
+import craft.beer.core.security.jwt.JwtTokenProvider
 import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager

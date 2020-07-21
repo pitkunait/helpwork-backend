@@ -1,4 +1,4 @@
-package craft.beer.core.security
+package craft.beer.core.security.jwt
 
 import craft.beer.core.exceptions.CustomException
 import org.springframework.security.core.context.SecurityContextHolder
