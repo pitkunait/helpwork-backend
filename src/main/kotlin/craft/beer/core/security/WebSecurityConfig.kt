@@ -1,4 +1,4 @@
-package craft.beer.security
+package craft.beer.core.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

@@ -1,4 +1,4 @@
-package craft.beer.exceptions
+package craft.beer.core.exceptions
 
 import org.springframework.http.HttpStatus
 

@@ -1,4 +1,4 @@
-package craft.beer.payload.responses
+package craft.beer.controllers.payload.responses
 
 
 data class RefreshTokenResponse(

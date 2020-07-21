@@ -1,4 +1,4 @@
-package craft.beer.config
+package craft.beer.core.config
 
 import org.modelmapper.ModelMapper
 import org.springframework.context.annotation.Bean

@@ -1,4 +1,4 @@
-package craft.beer.model
+package craft.beer.user.model
 
 import org.springframework.security.core.GrantedAuthority
 

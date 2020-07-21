@@ -1,8 +1,8 @@
-package craft.beer.security
+package craft.beer.core.security
 
-import craft.beer.exceptions.CustomException
-import craft.beer.model.Role
-import craft.beer.model.Token
+import craft.beer.core.exceptions.CustomException
+import craft.beer.user.model.Role
+import craft.beer.user.model.Token
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm

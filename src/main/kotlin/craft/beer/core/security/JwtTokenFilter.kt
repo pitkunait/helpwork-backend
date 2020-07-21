@@ -1,6 +1,6 @@
-package craft.beer.security
+package craft.beer.core.security
 
-import craft.beer.exceptions.CustomException
+import craft.beer.core.exceptions.CustomException
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain

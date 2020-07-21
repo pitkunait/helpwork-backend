@@ -1,4 +1,4 @@
-package craft.beer.model
+package craft.beer.user.model
 
 import javax.persistence.*
 import javax.validation.constraints.Size
