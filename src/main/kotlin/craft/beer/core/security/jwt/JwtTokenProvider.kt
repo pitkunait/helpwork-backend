@@ -1,9 +1,8 @@
 package craft.beer.core.security.jwt
 
 import craft.beer.core.exceptions.CustomException
-import craft.beer.core.security.MyUserDetails
+import craft.beer.core.user.services.UserDetailsService
 import craft.beer.core.user.model.Role
-import craft.beer.core.user.model.Token
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletRequest
 
 
 @Component
-class JwtTokenProvider(private val myUserDetails: MyUserDetails) {
+class JwtTokenProvider(private val myUserDetails: UserDetailsService) {
 
     @Value("\${security.jwt.token.access-token-expiration}")
     private val accessTokenExpiration: Long? = null
@@ -49,7 +48,7 @@ class JwtTokenProvider(private val myUserDetails: MyUserDetails) {
 
     fun createRefreshJwtToken(username: String?): String {
         val claims = Jwts.claims().setSubject(username)
-        claims["auth"] = listOf(Token.REFRESH_TOKEN.name)
+        claims["auth"] = listOf(Role.REFRESH_TOKEN.name)
         val now = Date()
         val validity = Date(now.time + refreshTokenExpiration!!)
         return Jwts.builder()
