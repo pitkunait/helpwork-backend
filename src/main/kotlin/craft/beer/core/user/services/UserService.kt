@@ -1,6 +1,6 @@
 package craft.beer.core.user.services
 
-import craft.beer.core.exceptions.CustomException
+import craft.beer.core.exceptions.AuthException
 import craft.beer.core.user.model.User
 import craft.beer.controllers.requests.RefreshTokenRequest
 import craft.beer.controllers.requests.SignInRequest
@@ -36,16 +36,16 @@ class UserService(
             val refreshToken: String = jwtTokenProvider.createRefreshJwtToken(signInRequest.username)
             SignInResponse("Success: User logged in.", accessToken, refreshToken)
         } catch (e: AuthenticationException) {
-            throw CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY)
+            throw AuthException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
 
     override fun signUp(signUpRequest: SignUpRequest): SignUpResponse {
         if (userRepository.existsByUsername(signUpRequest.username)) {
-            throw CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY)
+            throw AuthException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY)
         }
         if (userRepository.existsByEmail(signUpRequest.email)) {
-            throw CustomException("Email is already in use", HttpStatus.UNPROCESSABLE_ENTITY)
+            throw AuthException("Email is already in use", HttpStatus.UNPROCESSABLE_ENTITY)
         }
 
         return try {
@@ -56,7 +56,7 @@ class UserService(
             val refreshToken: String = jwtTokenProvider.createRefreshJwtToken(user.username)
             SignUpResponse("Success: New user created.", accessToken, refreshToken)
         } catch (e: Exception) {
-            throw CustomException(e.message!!, HttpStatus.UNPROCESSABLE_ENTITY)
+            throw AuthException(e.message!!, HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
 
@@ -67,7 +67,7 @@ class UserService(
             val accessToken: String = jwtTokenProvider.createAccessJwtToken(username, userRepository.findByUsername(username).get().roles!!)
             RefreshTokenResponse("Success: New token granted.", accessToken)
         } catch (e: Exception) {
-            throw CustomException(e.message!!, HttpStatus.UNPROCESSABLE_ENTITY)
+            throw AuthException(e.message!!, HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
 

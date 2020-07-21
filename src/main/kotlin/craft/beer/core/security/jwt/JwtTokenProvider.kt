@@ -1,6 +1,6 @@
 package craft.beer.core.security.jwt
 
-import craft.beer.core.exceptions.CustomException
+import craft.beer.core.exceptions.AuthException
 import craft.beer.core.user.services.UserDetailsService
 import craft.beer.core.user.model.Role
 import io.jsonwebtoken.JwtException
@@ -90,9 +90,9 @@ class JwtTokenProvider(private val myUserDetails: UserDetailsService) {
                     .parseClaimsJws(token)
             true
         } catch (e: JwtException) {
-            throw CustomException("Expired or invalid JWT token", HttpStatus.INTERNAL_SERVER_ERROR)
+            throw AuthException("Expired or invalid JWT token", HttpStatus.INTERNAL_SERVER_ERROR)
         } catch (e: IllegalArgumentException) {
-            throw CustomException("Expired or invalid JWT token", HttpStatus.INTERNAL_SERVER_ERROR)
+            throw AuthException("Expired or invalid JWT token", HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }

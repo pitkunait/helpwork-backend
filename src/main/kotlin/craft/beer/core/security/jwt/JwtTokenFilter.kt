@@ -1,6 +1,6 @@
 package craft.beer.core.security.jwt
 
-import craft.beer.core.exceptions.CustomException
+import craft.beer.core.exceptions.AuthException
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -21,7 +21,7 @@ class JwtTokenFilter(
                 val auth = jwtTokenProvider.getAuthentication(token)
                 SecurityContextHolder.getContext().authentication = auth
             }
-        } catch (ex: CustomException) {
+        } catch (ex: AuthException) {
             //this is very important, since it guarantees the user is not authenticated at all
             SecurityContextHolder.clearContext()
             httpServletResponse.sendError(ex.httpStatus.value(), ex.message)
