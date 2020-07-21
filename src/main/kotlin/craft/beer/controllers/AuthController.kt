@@ -1,12 +1,12 @@
 package craft.beer.controllers
 
-import craft.beer.controllers.payload.requests.RefreshTokenRequest
-import craft.beer.controllers.payload.requests.SignInRequest
-import craft.beer.controllers.payload.requests.SignUpRequest
-import craft.beer.controllers.payload.responses.RefreshTokenResponse
-import craft.beer.controllers.payload.responses.SignInResponse
-import craft.beer.controllers.payload.responses.SignUpResponse
-import craft.beer.user.services.IUserService
+import craft.beer.controllers.requests.RefreshTokenRequest
+import craft.beer.controllers.requests.SignInRequest
+import craft.beer.controllers.requests.SignUpRequest
+import craft.beer.controllers.responses.RefreshTokenResponse
+import craft.beer.controllers.responses.SignInResponse
+import craft.beer.controllers.responses.SignUpResponse
+import craft.beer.core.user.services.IUserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 

@@ -1,8 +1,8 @@
 package craft.beer.controllers
 
 
-import craft.beer.controllers.payload.responses.UserInformationResponse
-import craft.beer.user.services.IUserService
+import craft.beer.controllers.responses.UserInformationResponse
+import craft.beer.core.user.services.IUserService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*

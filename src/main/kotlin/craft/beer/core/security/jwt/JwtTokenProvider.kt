@@ -2,8 +2,8 @@ package craft.beer.core.security.jwt
 
 import craft.beer.core.exceptions.CustomException
 import craft.beer.core.security.MyUserDetails
-import craft.beer.user.model.Role
-import craft.beer.user.model.Token
+import craft.beer.core.user.model.Role
+import craft.beer.core.user.model.Token
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm

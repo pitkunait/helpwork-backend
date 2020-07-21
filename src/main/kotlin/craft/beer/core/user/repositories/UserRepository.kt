@@ -1,6 +1,6 @@
-package craft.beer.user.repositories
+package craft.beer.core.user.repositories
 
-import craft.beer.user.model.User
+import craft.beer.core.user.model.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*

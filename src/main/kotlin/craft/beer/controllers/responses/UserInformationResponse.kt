@@ -1,4 +1,4 @@
-package craft.beer.controllers.payload.responses
+package craft.beer.controllers.responses
 
 data class UserInformationResponse(
         var username: String? = null,

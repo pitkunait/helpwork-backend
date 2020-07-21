@@ -1,15 +1,15 @@
-package craft.beer.user.services
+package craft.beer.core.user.services
 
 import craft.beer.core.exceptions.CustomException
-import craft.beer.user.model.User
-import craft.beer.controllers.payload.requests.RefreshTokenRequest
-import craft.beer.controllers.payload.requests.SignInRequest
-import craft.beer.controllers.payload.requests.SignUpRequest
-import craft.beer.controllers.payload.responses.RefreshTokenResponse
-import craft.beer.controllers.payload.responses.SignInResponse
-import craft.beer.controllers.payload.responses.SignUpResponse
-import craft.beer.controllers.payload.responses.UserInformationResponse
-import craft.beer.user.repositories.UserRepository
+import craft.beer.core.user.model.User
+import craft.beer.controllers.requests.RefreshTokenRequest
+import craft.beer.controllers.requests.SignInRequest
+import craft.beer.controllers.requests.SignUpRequest
+import craft.beer.controllers.responses.RefreshTokenResponse
+import craft.beer.controllers.responses.SignInResponse
+import craft.beer.controllers.responses.SignUpResponse
+import craft.beer.controllers.responses.UserInformationResponse
+import craft.beer.core.user.repositories.UserRepository
 import craft.beer.core.security.jwt.JwtTokenProvider
 import org.modelmapper.ModelMapper
 import org.springframework.http.HttpStatus

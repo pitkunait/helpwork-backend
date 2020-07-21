@@ -1,10 +1,12 @@
-package craft.beer.user.model
+package craft.beer.core.user.model
 
 import org.springframework.security.core.GrantedAuthority
 
 
-enum class Token : GrantedAuthority {
-    REFRESH_TOKEN;
+enum class Role : GrantedAuthority {
+    ROLE_ADMIN,
+    ROLE_USER,
+    ROLE_DEVELOPER;
 
     override fun getAuthority(): String {
         return name

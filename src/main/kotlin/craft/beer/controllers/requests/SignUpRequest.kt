@@ -1,4 +1,4 @@
-package craft.beer.controllers.payload.requests
+package craft.beer.controllers.requests
 
 data class SignUpRequest(
         var username: String,

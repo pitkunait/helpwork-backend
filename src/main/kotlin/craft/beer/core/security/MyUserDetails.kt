@@ -1,7 +1,7 @@
 package craft.beer.core.security
 
-import craft.beer.user.model.User
-import craft.beer.user.repositories.UserRepository
+import craft.beer.core.user.model.User
+import craft.beer.core.user.repositories.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
