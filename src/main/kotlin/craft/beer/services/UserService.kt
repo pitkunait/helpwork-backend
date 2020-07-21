@@ -8,6 +8,7 @@ import craft.beer.payload.requests.SignUpRequest
 import craft.beer.payload.responses.RefreshTokenResponse
 import craft.beer.payload.responses.SignInResponse
 import craft.beer.payload.responses.SignUpResponse
+import craft.beer.payload.responses.UserInformationResponse
 import craft.beer.repositories.UserRepository
 import craft.beer.security.JwtTokenProvider
 import org.modelmapper.ModelMapper
@@ -59,18 +60,6 @@ class UserService(
         }
     }
 
-    override fun deleteByUserName(username: String?) {
-        userRepository.deleteByUsername(username)
-    }
-
-    override fun searchByUserName(username: String?): User {
-        return userRepository.findByUsername(username!!).get()
-    }
-
-    override fun whoami(req: HttpServletRequest?): User {
-        return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req!!))).get()
-    }
-
     override fun refreshToken(refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse {
         return try {
             jwtTokenProvider.validateToken(refreshTokenRequest.refreshJwt)
@@ -81,4 +70,21 @@ class UserService(
             throw CustomException(e.message!!, HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
+
+    override fun whoami(req: HttpServletRequest?): UserInformationResponse {
+        val user: User = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req!!))).get()
+        return modelMapper.map(user, UserInformationResponse::class.java)
+    }
+
+    override fun deleteByUserName(username: String?) {
+        userRepository.deleteByUsername(username)
+    }
+
+    override fun searchByUserName(username: String?): User {
+        return userRepository.findByUsername(username!!).get()
+    }
+
+
+
+
 }

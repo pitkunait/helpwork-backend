@@ -43,7 +43,6 @@ class AuthController(private val userService: IUserService) {
     }
 
     @GetMapping("/refresh-token")
-    //    @PreAuthorize("hasRole('REFRESH_TOKEN')")
     fun refreshToken(@RequestBody refreshTokenRequest: RefreshTokenRequest): ResponseEntity<RefreshTokenResponse> {
         return try {
             ResponseEntity

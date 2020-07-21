@@ -7,6 +7,7 @@ import craft.beer.payload.requests.SignUpRequest
 import craft.beer.payload.responses.RefreshTokenResponse
 import craft.beer.payload.responses.SignInResponse
 import craft.beer.payload.responses.SignUpResponse
+import craft.beer.payload.responses.UserInformationResponse
 import javax.servlet.http.HttpServletRequest
 
 
@@ -20,7 +21,7 @@ interface IUserService {
 
     fun searchByUserName(username: String?): User
 
-    fun whoami(req: HttpServletRequest?): User
+    fun whoami(req: HttpServletRequest?): UserInformationResponse
 
     fun refreshToken(refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
 

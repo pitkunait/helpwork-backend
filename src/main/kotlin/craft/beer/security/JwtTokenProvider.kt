@@ -2,7 +2,7 @@ package craft.beer.security
 
 import craft.beer.exceptions.CustomException
 import craft.beer.model.Role
-import craft.beer.model.Scope
+import craft.beer.model.Token
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component
 import java.security.Key
 import java.util.*
 import java.util.stream.Collectors
-import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 
 
@@ -57,7 +56,7 @@ class JwtTokenProvider(private val myUserDetails: MyUserDetails) {
 
     fun createRefreshJwtToken(username: String?): String {
         val claims = Jwts.claims().setSubject(username)
-        claims["auth"] = listOf(Scope.REFRESH_TOKEN.name)
+        claims["auth"] = listOf(Token.REFRESH_TOKEN.name)
         val now = Date()
         val validity = Date(now.time + refreshTokenExpiration!!)
         return Jwts.builder()
