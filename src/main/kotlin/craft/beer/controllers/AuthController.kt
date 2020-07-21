@@ -42,7 +42,7 @@ class AuthController(private val userService: IUserService) {
         }
     }
 
-    @GetMapping("/refresh-token")
+    @PostMapping("/refresh-token")
     fun refreshToken(@RequestBody refreshTokenRequest: RefreshTokenRequest): ResponseEntity<RefreshTokenResponse> {
         return try {
             ResponseEntity

@@ -22,14 +22,6 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class JwtTokenProvider(private val myUserDetails: MyUserDetails) {
 
-    //    @Value("\${security.jwt.token.secret-key}")
-    //    private var secretKey: String? = null
-
-    //    @PostConstruct
-    //    protected fun init() {
-    //        secretKey = Base64.getEncoder().encodeToString(secretKey!!.toByteArray())
-    //    }
-
     @Value("\${security.jwt.token.access-token-expiration}")
     private val accessTokenExpiration: Long? = null
 
@@ -75,8 +67,9 @@ class JwtTokenProvider(private val myUserDetails: MyUserDetails) {
     }
 
     fun getUsername(token: String?): String {
-        return Jwts.parser()
+        return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
+                .build()
                 .parseClaimsJws(token)
                 .body
                 .subject
@@ -91,8 +84,9 @@ class JwtTokenProvider(private val myUserDetails: MyUserDetails) {
 
     fun validateToken(token: String?): Boolean {
         return try {
-            Jwts.parser()
+            Jwts.parserBuilder()
                     .setSigningKey(secretKey)
+                    .build()
                     .parseClaimsJws(token)
             true
         } catch (e: JwtException) {
