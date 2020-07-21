@@ -1,8 +1,8 @@
 package craft.beer.core.security.jwt
 
 import craft.beer.core.exceptions.AuthException
-import craft.beer.core.user.services.UserDetailsService
 import craft.beer.core.user.model.Role
+import craft.beer.core.user.services.UserDetailsService
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm

@@ -1,6 +1,5 @@
 package craft.beer.core.user.services
 
-import craft.beer.core.user.model.User
 import craft.beer.controllers.requests.RefreshTokenRequest
 import craft.beer.controllers.requests.SignInRequest
 import craft.beer.controllers.requests.SignUpRequest
@@ -8,6 +7,7 @@ import craft.beer.controllers.responses.RefreshTokenResponse
 import craft.beer.controllers.responses.SignInResponse
 import craft.beer.controllers.responses.SignUpResponse
 import craft.beer.controllers.responses.UserInformationResponse
+import craft.beer.core.user.model.User
 import javax.servlet.http.HttpServletRequest
 
 
