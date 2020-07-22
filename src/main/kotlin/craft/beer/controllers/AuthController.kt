@@ -25,7 +25,7 @@ class AuthController(private val userService: IUserService) {
         } catch (e: Exception) {
             ResponseEntity
                     .badRequest()
-                    .body(SignUpResponse("Error: " + e.message))
+                    .body(SignUpResponse(e.message!!))
         }
     }
 
@@ -38,7 +38,7 @@ class AuthController(private val userService: IUserService) {
         } catch (e: Exception) {
             ResponseEntity
                     .badRequest()
-                    .body(SignInResponse("Error: " + e.message))
+                    .body(SignInResponse("Invalid username/password supplied"))
         }
     }
 
@@ -51,7 +51,7 @@ class AuthController(private val userService: IUserService) {
         } catch (e: Exception) {
             ResponseEntity
                     .badRequest()
-                    .body(RefreshTokenResponse("Error: " + e.message))
+                    .body(RefreshTokenResponse("Invalid token supplied"))
         }
     }
 }
