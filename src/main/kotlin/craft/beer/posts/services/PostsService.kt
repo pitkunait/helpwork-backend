@@ -1,6 +1,7 @@
 package craft.beer.posts.services
 
 import craft.beer.controllers.requests.NewPostRequest
+import craft.beer.controllers.requests.SearchPostsRequest
 import craft.beer.controllers.responses.ListPostsResponse
 import craft.beer.controllers.responses.NewPostResponse
 import craft.beer.core.user.repositories.UserRepository
@@ -23,6 +24,11 @@ class PostsService(val modelMapper: ModelMapper,
         post.user = user.id
         postRepository.save(post)
         return NewPostResponse("Post created")
+    }
+
+    override fun searchPosts(searchPostsRequest: SearchPostsRequest): ListPostsResponse {
+        val posts = postRepository.findByTitleContains(searchPostsRequest.title)
+        return ListPostsResponse("Posts fetched", posts)
     }
 
     override fun listPosts(): ListPostsResponse {

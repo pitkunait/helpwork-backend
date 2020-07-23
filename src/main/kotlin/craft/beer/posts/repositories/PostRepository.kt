@@ -11,4 +11,6 @@ interface PostRepository : JpaRepository<Post, Long> {
 
     fun existsById(id: Int): Boolean
 
+    fun findByTitleContains(substring: String): List<Post>?
+
 }

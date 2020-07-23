@@ -1,6 +1,7 @@
 package craft.beer.controllers
 
 import craft.beer.controllers.requests.NewPostRequest
+import craft.beer.controllers.requests.SearchPostsRequest
 import craft.beer.controllers.responses.ListPostsResponse
 import craft.beer.controllers.responses.NewPostResponse
 import craft.beer.posts.services.PostsService
@@ -26,12 +27,25 @@ class PostsController(val postsService: PostsService) {
         }
     }
 
-    @GetMapping("/posts")
-    fun newPost(): ResponseEntity<ListPostsResponse> {
+    @GetMapping("/list")
+    fun listPosts(): ResponseEntity<ListPostsResponse> {
         return try {
             ResponseEntity
                     .ok()
                     .body(postsService.listPosts())
+        } catch (e: Exception) {
+            ResponseEntity
+                    .badRequest()
+                    .body(ListPostsResponse(e.message!!))
+        }
+    }
+
+    @GetMapping("/search")
+    fun searchPosts(@RequestParam(name = "title") searchPostsRequest: SearchPostsRequest): ResponseEntity<ListPostsResponse> {
+        return try {
+            ResponseEntity
+                    .ok()
+                    .body(postsService.searchPosts(searchPostsRequest))
         } catch (e: Exception) {
             ResponseEntity
                     .badRequest()
