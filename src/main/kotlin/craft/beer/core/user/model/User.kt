@@ -1,5 +1,6 @@
 package craft.beer.core.user.model
 
+import craft.beer.posts.model.Post
 import javax.persistence.*
 import javax.validation.constraints.Size
 
@@ -24,6 +25,9 @@ class User {
 
     @Column(unique = true, nullable = false)
     var email: String? = null
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "user")
+    val posts: List<Post>? = null
 
     @Size(min = 4, message = "Minimum password length: 8 characters")
     var password: String? = null
