@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*
 
 @CrossOrigin
 @RestController
-@RequestMapping("/posts")
 class PostsController(private val postsService: PostsService) {
 
-    @PostMapping("/post")
+    @PostMapping("/posts")
     fun newPost(@RequestBody newPostRequest: NewPostRequest): ResponseEntity<NewPostResponse> {
         return try {
             ResponseEntity
@@ -40,7 +39,7 @@ class PostsController(private val postsService: PostsService) {
         }
     }
 
-    @GetMapping("/search")
+    @GetMapping("/posts", params = ["title"])
     fun searchPosts(@RequestParam(name = "title") searchPostsRequest: SearchPostsRequest): ResponseEntity<ListPostsResponse> {
         return try {
             ResponseEntity
