@@ -12,7 +12,7 @@ class Post {
     var id: Int? = null
 
     //    @ManyToOne(fetch = FetchType.LAZY, )
-//    @JoinColumn(name="user_id")
+    //    @JoinColumn(name="user_id")
     @Column(name = "user_id")
     var user: Int? = null
 

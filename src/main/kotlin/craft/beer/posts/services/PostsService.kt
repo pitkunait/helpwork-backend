@@ -12,9 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
 @Service
-class PostsService(val modelMapper: ModelMapper,
-                   val postRepository: PostRepository,
-                   val userRepository: UserRepository
+class PostsService(private val modelMapper: ModelMapper,
+                   private val postRepository: PostRepository,
+                   private val userRepository: UserRepository
 ) : IPostsService {
 
     override fun newPost(newPostRequest: NewPostRequest): NewPostResponse {
