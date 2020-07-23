@@ -1,6 +1,8 @@
 package craft.beer.posts.repositories
 
 import craft.beer.posts.model.Post
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
@@ -11,6 +13,6 @@ interface PostRepository : JpaRepository<Post, Long> {
 
     fun existsById(id: Int): Boolean
 
-    fun findByTitleContains(substring: String): List<Post>?
+    fun findByTitleContains(substring: String, pageable:Pageable): Page<Post>?
 
 }

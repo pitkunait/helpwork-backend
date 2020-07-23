@@ -26,12 +26,12 @@ class PostsController(private val postsService: PostsService) {
         }
     }
 
-    @GetMapping("/posts")
-    fun listPosts(): ResponseEntity<ListPostsResponse> {
+    @GetMapping("/posts", params = ["page"])
+    fun listPosts(@RequestParam(name = "page") page: Int): ResponseEntity<ListPostsResponse> {
         return try {
             ResponseEntity
                     .ok()
-                    .body(postsService.listPosts())
+                    .body(postsService.listPosts(page))
         } catch (e: Exception) {
             ResponseEntity
                     .badRequest()
@@ -39,12 +39,13 @@ class PostsController(private val postsService: PostsService) {
         }
     }
 
-    @GetMapping("/posts", params = ["title"])
-    fun searchPosts(@RequestParam(name = "title") searchPostsRequest: SearchPostsRequest): ResponseEntity<ListPostsResponse> {
+    @GetMapping("/posts", params = ["page", "title"])
+    fun searchPosts(@RequestParam(name = "page") page: Int,
+                    @RequestParam(name = "title") searchPostsRequest: SearchPostsRequest): ResponseEntity<ListPostsResponse> {
         return try {
             ResponseEntity
                     .ok()
-                    .body(postsService.searchPosts(searchPostsRequest))
+                    .body(postsService.searchPosts(page, searchPostsRequest))
         } catch (e: Exception) {
             ResponseEntity
                     .badRequest()
