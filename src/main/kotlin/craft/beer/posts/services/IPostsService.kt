@@ -6,9 +6,9 @@ import craft.beer.controllers.responses.ListPostsResponse
 import craft.beer.controllers.responses.NewPostResponse
 
 interface IPostsService {
-    fun listPosts(): ListPostsResponse
+    fun listPosts(page:Int): ListPostsResponse
 
     fun newPost(newPostRequest: NewPostRequest): NewPostResponse
 
-    fun searchPosts(searchPostsRequest: SearchPostsRequest): ListPostsResponse
+    fun searchPosts(page:Int, searchPostsRequest: SearchPostsRequest): ListPostsResponse
 }

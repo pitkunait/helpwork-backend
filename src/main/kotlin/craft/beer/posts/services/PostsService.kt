@@ -8,6 +8,9 @@ import craft.beer.core.user.repositories.UserRepository
 import craft.beer.posts.model.Post
 import craft.beer.posts.repositories.PostRepository
 import org.modelmapper.ModelMapper
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
@@ -26,13 +29,13 @@ class PostsService(private val modelMapper: ModelMapper,
         return NewPostResponse("Post created")
     }
 
-    override fun searchPosts(searchPostsRequest: SearchPostsRequest): ListPostsResponse {
-        val posts = postRepository.findByTitleContains(searchPostsRequest.title)
+    override fun searchPosts(page: Int, searchPostsRequest: SearchPostsRequest): ListPostsResponse {
+        val posts = postRepository.findByTitleContains(searchPostsRequest.title, PageRequest.of(page, 10, Sort.by("createdAt").descending()))
         return ListPostsResponse("Posts fetched", posts)
     }
 
-    override fun listPosts(): ListPostsResponse {
-        val posts: List<Post> = postRepository.findAll()
+    override fun listPosts(page: Int): ListPostsResponse {
+        val posts: Page<Post> = postRepository.findAll(PageRequest.of(page, 10, Sort.by("createdAt").descending()))
         return ListPostsResponse("Posts fetched", posts)
     }
 }
