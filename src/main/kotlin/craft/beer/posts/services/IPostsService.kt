@@ -1,14 +1,20 @@
 package craft.beer.posts.services
 
 import craft.beer.controllers.requests.NewPostRequest
-import craft.beer.controllers.requests.SearchPostsRequest
-import craft.beer.controllers.responses.ListPostsResponse
-import craft.beer.controllers.responses.NewPostResponse
+import craft.beer.posts.model.Post
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Slice
 
 interface IPostsService {
-    fun listPosts(page:Int): ListPostsResponse
+    fun newPost(newPostRequest: NewPostRequest)
 
-    fun newPost(newPostRequest: NewPostRequest): NewPostResponse
+    fun listPosts(page: Int): Page<Post>
 
-    fun searchPosts(page:Int, searchPostsRequest: SearchPostsRequest): ListPostsResponse
+    fun getOnePost(id: Int): Post?
+
+    fun editPost(id: Int, newPostRequest: NewPostRequest)
+
+    fun deletePost(id: Int)
+
+    fun searchPosts(page: Int, title: String): Slice<Post>?
 }
