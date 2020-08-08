@@ -20,3 +20,9 @@ security:
     token:
       access-token-expiration: 300000
       refresh-token-expiration: 86400000
+
+amazonProperties:
+  endpointUrl: https://s3.us-east-2.amazonaws.com
+  accessKey: XXXXXXXXXXXXXXXXX
+  secretKey: XXXXXXXXXXXXXXXXXXXXXXXXXX
+  bucketName: your-bucket-name

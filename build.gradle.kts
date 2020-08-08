@@ -17,6 +17,7 @@ repositories {
 }
 
 dependencies {
+
 	implementation("org.modelmapper:modelmapper:2.3.5")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-rest")
@@ -29,6 +30,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("org.springframework.session:spring-session-core")
+
+	// AWS support
+	implementation("com.amazonaws:aws-java-sdk-s3:1.11.837")
 
 
 	// entity validation
